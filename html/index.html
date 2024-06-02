@@ -1,0 +1,119 @@
+<html>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>TerryJira</title>
+  <link rel="icon" type="image/x-icon" href="/html/favicon.ico">
+  <meta charset=utf-8>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="/html/style.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+</head>
+<form id="upload" method="post" onsubmit="return false" class="upload-form">
+  <div class="input-group mb-3">
+    <div class="input-group-prepend">
+      <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
+    </div>
+    <div class="custom-file">
+      <input name="file" type="file" placeholder=".xls/.xlsx" class="custom-file-input" id="customFile"
+        aria-describedby="inputGroupFileAddon01" accept=".xls, .xlsx">
+      <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+    </div>
+  </div>
+  <input type="submit" class="btn btn-primary" value="Загрузить файл">
+</form>
+<div id="worklogs">
+  Файл не загружен
+</div>
+<form id="upload2jira" method="post" onsubmit="return false" class="upload-form">
+  <div class="input input-group flex-nowrap">
+    <div class="input-group-prepend">
+      <span class="input-group-text" id="addon-wrapping">Jira URL</span>
+    </div>
+    <input type="text" id="jira-url" name="jira-url" class="form-control" placeholder="https://jira.example.com"
+      aria-label="Введите URL до Jira" aria-describedby="addon-wrapping">
+  </div>
+  <div class="input input-group flex-nowrap">
+    <div class="input-group-prepend">
+      <span class="input-group-text" id="addon-wrapping">Jira token</span>
+    </div>
+    <input type="password" id="jira-token" name="jira-token" class="form-control" placeholder="Token for access to jira"
+      aria-label="Введите персональный токен доступа к Jira" aria-describedby="addon-wrapping">
+  </div>
+  <input type="submit" class="btn btn-primary" value="Отправить в jira">
+</form>
+<script type="text/javascript">
+  $("document").ready(function () {
+    /* вешаем событие на ранее созданную форму */
+    $("#upload").on("submit", function () {
+      /* создаём объект с данными из полей */
+      let formData = new FormData(upload)
+      /* добавляем дополнительные данные для отправки */
+      formData.append("url_query", "prog-time");
+      /* записываем в переменную данные картинок из формы */
+      let allfiles = $(this).find('input[name="file"]');
+      /* пробегаем по файлам и записываем их в массив для отправки */
+      /*for(var i = 0; i < allfiles[0].files.length; i++){
+          formData.append("file_"+i, allfiles[0].files[i]); 
+      }*/
+      formData.append("file", allfiles[0].files[0]);
+      /* отправляем AJAX запрос */
+      $.ajax({
+        type: "POST",
+        url: '/upload',
+        contentType: false,
+        processData: false,
+        data: formData,
+        success: function (data) {
+          document.getElementById('worklogs').innerHTML = data;
+          document.getElementById('upload2jira').style.visibility = "visible";
+        },
+        error: function (error) {
+          document.getElementById('upload2jira').style.visibility = "hidden";
+          document.getElementById('worklogs').innerHTML = "Файл не загружен";
+        }
+      });
+    }),
+    /* вешаем событие на ранее созданную форму */
+    $("#upload2jira").on("submit", function () {
+      /* создаём объект с данными из полей */
+      let formData = new FormData(upload)
+      /* добавляем дополнительные данные для отправки */
+      formData.append("url_query", "prog-time");
+      /* записываем в переменную данные картинок из формы */
+      //let allfiles = $(this).find('input[name="file"]');
+      /* пробегаем по файлам и записываем их в массив для отправки */
+      /*for(var i = 0; i < allfiles[0].files.length; i++){
+          formData.append("file_"+i, allfiles[0].files[i]); 
+      }*/
+      formData.append("jira-url", document.getElementById('jira-url').value);
+      formData.append("jira-token", document.getElementById('jira-token').value);
+      formData.append("worklogs", document.getElementById('worklogs').innerHTML);
+      /* отправляем AJAX запрос */
+      $.ajax({
+        type: "POST",
+        url: '/upload2jira',
+        contentType: false,
+        processData: false,
+        data: formData,
+        success: function (data) {
+          document.getElementById('worklogs').innerHTML = data;
+          document.getElementById('upload2jira').style.visibility = "hidden";
+        },
+        error: function (error) {
+          document.getElementById('upload2jira').style.visibility = "hidden";
+          document.getElementById('worklogs').innerHTML = "Ошибка: " + error.responseText;
+        }
+      });
+    });
+  })
+</script>
+<script>
+  $(".custom-file-input").on("change", function () {
+    var fileName = $(this).val().split("\\").pop();
+    $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+  });
+</script>
+
+</html>
