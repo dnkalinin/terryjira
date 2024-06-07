@@ -18,8 +18,9 @@ The service for uploading worklogs from a excel's file to Jira
    -  Start time
    -  End date
    -  End time
-   ![alt text](docs/images/example-of-excel-file.png "Title")
-   
+   ![alt text](docs/images/example-of-excel-file.png "Example excel file")
+   [Example excel file](docs/calendar-test.xlsx)
+
    Other columns will be ingored
 ### For service
 - Docker
@@ -31,7 +32,7 @@ The service for uploading worklogs from a excel's file to Jira
   - Default names for required columns for excel file
   - Default Jira URL
 
-  Example file `config.example.yaml`:
+  Example file config.example.yaml`:
   ```yaml 
    address: 0.0.0.0
    port: 8081
