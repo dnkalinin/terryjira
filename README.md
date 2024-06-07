@@ -7,6 +7,7 @@ The service for uploading worklogs from a excel's file to Jira
 - Check the correctness of the worklogs
 - Enter Jira URL and Jira API access token
 - Send worklogs to Jira
+
 ![alt text](docs/images/howto.png "Prepare")
 ## Requirements
 ### For users
@@ -18,6 +19,7 @@ The service for uploading worklogs from a excel's file to Jira
    -  Start time
    -  End date
    -  End time
+   
    ![alt text](docs/images/example-of-excel-file.png "Title")
    
    Other columns will be ingored
