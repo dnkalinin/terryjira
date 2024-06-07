@@ -50,4 +50,4 @@ The service for uploading worklogs from a excel's file to Jira
   ```
 
 - First run `run.sh` for Linux or `run.ps1` for MS Windows
-- Go to the <http://address:port>
+- Go to the <http://server:port>
