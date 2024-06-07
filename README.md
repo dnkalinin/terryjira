@@ -19,10 +19,12 @@ The service for uploading worklogs from a excel's file to Jira
    -  Start time
    -  End date
    -  End time
+ 
+   ![alt text](docs/images/example-of-excel-file.png "Example excel file")
    
-   ![alt text](docs/images/example-of-excel-file.png "Title")
-   
-   Other columns will be ingored
+   [Example excel file](docs/calendar-test.xlsx)
+
+  Other columns will be ingored
 ### For service
 - Docker
 - Network connectivity to Jira  
