@@ -1,0 +1,12 @@
+address: 0.0.0.0
+port: 8081
+columns:
+   jiraprojects:
+      - PROJECTA
+      - PROJECTB
+   work: Subject
+   startdate: Start Date
+   starttime: Start Time
+   enddate: End Date
+   endtime: End Time
+jiraurl: https://jira.example.org

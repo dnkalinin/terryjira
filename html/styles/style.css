@@ -84,3 +84,10 @@ button {
 #upload2jira{
   visibility: hidden;
 }
+.card {
+  margin-bottom: 16px;
+}
+[data-bs-theme=dark] .element {
+  color: var(--bs-primary-text-emphasis);
+  background-color: var(--bs-primary-bg-subtle);
+}
