@@ -21,6 +21,7 @@ The service for uploading worklogs from a excel's file to Jira
    -  End time
  
    ![alt text](docs/images/example-of-excel-file.png "Example excel file")
+   
    [Example excel file](docs/calendar-test.xlsx)
 
   Other columns will be ingored
