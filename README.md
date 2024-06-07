@@ -35,7 +35,7 @@ The service for uploading worklogs from a excel's file to Jira
   - Default names for required columns for excel file
   - Default Jira URL
 
-  Example file config.example.yaml`:
+  Example file `config.example.yaml`:
   ```yaml 
    address: 0.0.0.0
    port: 8081
