@@ -1,0 +1,96 @@
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>TerryJira</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="/html/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/html/images/favicon-16x16.png">
+  <meta charset=utf-8>
+  <link rel="stylesheet" href="/html/styles/bootstrap.css">
+  <link rel="stylesheet" href="/html/styles/style.css">
+  <script src="/html/js/jquery.min.js"></script>
+  <script src="/html/js/jquery.min.js"></script>
+  <script src="/html/js/bootstrap.js"></script>
+</head>
+<div data-bs-theme="blue">
+  <form id="upload" method="post" onsubmit="return false" class="upload-form">
+  <div class="card">
+    <div class="card-body">
+      <h6 class="card-title">Column names in file</h6>
+      <div class="input input-group flex-nowrap">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="column-projects-wrapping">Jira project names</span>
+        </div>
+        <input type="text" id="column-projects" name="column-projects" class="form-control" style="text-transform:uppercase"
+          placeholder="PROJECT1, PROJECT2, ..." aria-label="Enter Jira project keys column names" aria-describedby="column-projects-wrapping">
+      </div>
+      <div class="input input-group flex-nowrap">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="column-work-wrapping">Work description</span>
+        </div>
+        <input type="text" id="column-work" name="column-work" class="form-control"
+          placeholder="Subject" aria-label="Enter work column name" aria-describedby="column-work-wrapping">
+      </div>
+      <div class="input input-group flex-nowrap">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="column-startdate-wrapping">Date-start</span>
+        </div>
+        <input type="text" id="column-startdate" name="column-startdate" class="form-control"
+          placeholder="Start Date" aria-label="Enter date start column name" aria-describedby="column-startdate-wrapping">
+      </div>
+      <div class="input input-group flex-nowrap">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="column-starttime-wrapping">Time-start</span>
+        </div>
+        <input type="text" id="column-starttime" name="column-starttime" class="form-control"
+          placeholder="Start Time" aria-label="Enter time start column name" aria-describedby="column-starttime-wrapping">
+      </div>
+      <div class="input input-group flex-nowrap">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="column-enddate-wrapping">Date-end</span>
+        </div>
+        <input type="text" id="column-enddate" name="column-enddate" class="form-control"
+          placeholder="End Date" aria-label="Enter date end column name" aria-describedby="column-enddate-wrapping">
+      </div>
+      <div class="input input-group flex-nowrap">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="column-endtime-wrapping">Time-end</span>
+        </div>
+        <input type="text" id="column-endtime" name="column-endtime" class="form-control"
+          placeholder="End Time" aria-label="Enter time end column name" aria-describedby="column-endtime-wrapping">
+      </div>
+    </div>
+  </div>
+  <div class="input-group mb-3">
+    <div class="input-group-prepend">
+      <span class="input-group-text" id="inputGroupFile">Upload</span>
+    </div>
+    <div class="custom-file">
+      <input name="file" type="file" placeholder="*.xls/*.xlsx" class="custom-file-input" id="customFile"
+        aria-describedby="inputGroupFile" accept=".xls, .xlsx">
+      <label class="custom-file-label" for="inputGroupFile">Choose file</label>
+    </div>
+  </div>
+  <input type="submit" class="btn btn-primary" value="File verification">
+</form>
+<div id="worklogs">
+  File not uploaded
+</div>
+<form id="upload2jira" method="post" onsubmit="return false" class="upload-form">
+  <div class="input input-group flex-nowrap">
+    <div class="input-group-prepend">
+      <span class="input-group-text" id="jira-url-wrapping">Jira URL</span>
+    </div>
+    <input type="text" id="jira-url" name="jira-url" class="form-control" placeholder="https://jira.example.com"
+      aria-label="Enter URL to Jira" aria-describedby="jira-url-wrapping">
+  </div>
+  <div class="input input-group flex-nowrap">
+    <div class="input-group-prepend">
+      <span class="input-group-text" id="jira-token-wrapping">Jira token</span>
+    </div>
+    <input type="password" id="jira-token" name="jira-token" class="form-control" placeholder="Token for access to jira"
+      aria-label="Enter the presonal token for access to Jira" aria-describedby="jira-token-wrapping">
+  </div>
+  <input type="submit" class="btn btn-primary" value="Upload to jira">
+</form>
+<script src="/html/js/scripts.js"></script>
+</html>
