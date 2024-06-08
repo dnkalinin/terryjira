@@ -91,3 +91,14 @@ button {
   color: var(--bs-primary-text-emphasis);
   background-color: var(--bs-primary-bg-subtle);
 }
+.bd-spinner {
+  padding: 1.5rem;
+  margin-right: 0;
+  margin-left: 0;
+  border-width: .2rem;
+  visibility: hidden;
+}
+#progress-bar {
+  position: fixed;
+  bottom: 0;
+}
