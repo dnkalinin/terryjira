@@ -2,7 +2,7 @@
 import pandas as pd
 from io import BytesIO
 from http.server import BaseHTTPRequestHandler, HTTPServer
-import cgi, yaml, re, traceback, json
+import cgi, yaml, re, traceback, json, time, sys
 from datetime import datetime, timedelta
 from jira import JIRA
 
@@ -128,24 +128,19 @@ class RequestHandler(BaseHTTPRequestHandler):
             return
 
         if self.path == '/upload2jira':
-            form = cgi.FieldStorage(
-                fp = self.rfile,
-                headers = self.headers,
-                environ = {
-                    'REQUEST_METHOD':'POST',
-                    'CONTENT_TYPE':self.headers['Content-Type'],
-                }
-            )
-            data = form.getvalue("worklogs")
+            length = int(self.headers['Content-Length'])
+            data = self.rfile.read(length)
+            data = json.loads(data.decode('utf-8'))
+
+            worklogs = data["worklogs"]
             attrs = {'id': 'worklogs_table'}
             pd.set_option('display.width', 1000)
             pd.set_option('colheader_justify', 'center')
-            df_worklogs=pd.read_html(data, attrs=attrs)
+            df_worklogs=pd.read_html(worklogs, attrs=attrs)
             df_worklogs=df_worklogs[0]
 
-            i_timezone = 3 # Timezone
-            api_token = form.getvalue("jiratoken") # Jira API token
-            server = form.getvalue("jiraurl") # Jira server URL
+            api_token = data["jiratoken"]
+            server = data["jiraurl"]
 
             options = {
                 'server': server,
@@ -154,25 +149,28 @@ class RequestHandler(BaseHTTPRequestHandler):
                 }            
             }
 
-            # Инициализация коннектора с jira
+            # Jira connetctor initialization
             jira = JIRA(options=options)
-
-            for index, df_row in df_worklogs.iterrows():
-                ts_date = datetime.strptime(df_row['Start date'], '%Y-%m-%d %H:%M:%S')-timedelta(hours=i_timezone, minutes=0)
-                jira.add_worklog(issue = df_row['Issue'], timeSpent = df_row['Timespent'], started = ts_date, comment = df_row['Work'])
-            
-            # Response
             self.send_response(200)
             self.send_header('Content-type', 'text/html; charset=utf-8')
             self.end_headers()
-            self.wfile.write(bytes("Success!", 'utf-8'))
+            i_df_len = len(df_worklogs.index)
+            self.wfile.write(('{} '.format(i_df_len)).encode('utf-8'))
+
+            for index, df_row in df_worklogs.iterrows():
+                ts_date = datetime.strptime(df_row['Start date utc'], '%Y-%m-%d %H:%M:%S')-timedelta(hours=0, minutes=0)
+                # Write to Jira
+                jira.add_worklog(issue = df_row['Issue'], timeSpent = df_row['Timespent'], started = ts_date, comment = df_row['Work'])
+                # Chunk response
+                self.wfile.write(('{} '.format(index)).encode('utf-8'))
+
             return
 
         else:
             self.send_response(404)
             self.end_headers()
             self.wfile.write(b'Not found')
-            return
+        return
 
 def run():
     print('=================================================================')

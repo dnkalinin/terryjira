@@ -12,6 +12,11 @@ The service for uploading worklogs from a excel's file to Jira
 ## Requirements
 ### For users
 -  Personal access token to Jira API
+   1. Log into Jira or Confluence and click your profile image and select Profile from the menu.
+   2. Click Manage Your Account.
+   3. Navigate to Security and click Create and manage API tokens.
+   4. Click Create API token.
+   5. Enter a Label and click Create.
 -  Excel file with one or more sheets with the following columns:
    -  Jira project key (One or more coulmns with project key)
    -  Work description
