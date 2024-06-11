@@ -11,7 +11,7 @@ class RequestHandler(BaseHTTPRequestHandler):
 
     def initconfig(self):
         print('Reading config...')
-        with open('/tmp/bin/config.yaml') as file:
+        with open('/usr/local/sbin/config.yaml') as file:
             self.config = yaml.safe_load(file)
 
     def getconfig(self):
